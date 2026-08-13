@@ -14,6 +14,7 @@ class SensorProj
         const uint8_t echoPin{11};
         const uint8_t thermistorPin{A0};
         const uint8_t buttonPin{12};
+        const uint8_t buzzerPin{8};
 
         uint8_t state = 0;
         const uint8_t tempState = 0;
@@ -44,6 +45,7 @@ class SensorProj
             pinMode(triggerPin, OUTPUT); // we're writing to the trigger pin using the echo pin --> output
             pinMode(echoPin, INPUT); // we're reading from the echo pin --> input
             pinMode(buttonPin, INPUT);
+            pinMode(buzzerPin, OUTPUT);
             LCD.begin(16,2);
         }
 
@@ -72,14 +74,16 @@ class SensorProj
             time = pulseIn(echoPin, HIGH) / 1000000.00;
         }
 
-        void setSpeedOfSound()
+        void setSoundandDistance()
         {
             speedOfSound = (baseSpeedFahr + (FahrRate * temperatureF)) * inchesPerMeter; // in inches per second
-        }
-
-        void setDistance()
-        {
             distance = (speedOfSound * time) / 2.00;
+            if(distance <= 15.00)
+            {
+                digitalWrite(buzzerPin, HIGH);
+                delay(30);
+                digitalWrite(buzzerPin, LOW);
+            }
         }
 
         void printDistance()

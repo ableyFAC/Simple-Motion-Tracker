@@ -12,12 +12,10 @@ void setup()
 
 void loop()
 {
-    
     sp.getTemperature();
     sp.sendPing();
 
-    sp.setSpeedOfSound();
-    sp.setDistance();
+    sp.setSoundandDistance();
 
     sp.displayInfo();
 }
