@@ -66,7 +66,7 @@ class SensorProj
         void sendPing() // sets the time it took for the ping to travel and return
         {
             digitalWrite(triggerPin, LOW);
-            delayMicroseconds(2000); // delay by 2 milisecond
+            delayMicroseconds(2); // delay by 2 milisecond
             // can also do this: delayMicroseconds(2000);
             digitalWrite(triggerPin, HIGH);
             delayMicroseconds(10);
@@ -78,7 +78,8 @@ class SensorProj
         {
             speedOfSound = (baseSpeedFahr + (FahrRate * temperatureF)) * inchesPerMeter; // in inches per second
             distance = (speedOfSound * time) / 2.00;
-            if(distance <= 15.00)
+
+            if(distance <= 20.00) // maximum distance needed to 
             {
                 digitalWrite(buzzerPin, HIGH);
                 delay(30);
@@ -109,13 +110,9 @@ class SensorProj
 
         void displayInfo()
         {
-            // to implement: a push button
-            // if state == 0, print temperature
-            // if state == 1, print distance
-
-            if(digitalRead(buttonPin) == HIGH) // if the button was pressed
+            if(digitalRead(buttonPin) == HIGH) 
             {
-                if(state == tempState) // if the current state is temperature, switch to distance
+                if(state == tempState) 
                 {
                     state = distState;
                 }

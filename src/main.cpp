@@ -14,8 +14,6 @@ void loop()
 {
     sp.getTemperature();
     sp.sendPing();
-
     sp.setSoundandDistance();
-
     sp.displayInfo();
 }
